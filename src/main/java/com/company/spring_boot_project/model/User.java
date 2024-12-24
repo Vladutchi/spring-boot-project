@@ -24,17 +24,12 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private List<Project> projects;
 
-    // Constructors
+    @Transient
+    private String confirmPassword;
+
     public User() {
     }
 
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -73,5 +68,13 @@ public class User {
 
     public void setProjects(List<Project> projects) {
         this.projects = projects;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }
