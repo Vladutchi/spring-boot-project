@@ -1,6 +1,7 @@
 package com.company.spring_boot_project.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 import java.sql.Date;
 import java.util.List;
@@ -14,7 +15,8 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", nullable = false, length = 100)
+    @Size(max = 100, message = "Title cannot exceed 100 characters")
     private String title;
 
     @Column(name = "description", nullable = false)

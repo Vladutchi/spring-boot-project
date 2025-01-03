@@ -1,6 +1,7 @@
 package com.company.spring_boot_project.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "tasks")
@@ -10,8 +11,10 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 100)
+    @Size(max = 100, message = "Task name cannot exceed 100 characters")
     private String name;
+
 
     @Column(name = "description", nullable = false)
     private String description;

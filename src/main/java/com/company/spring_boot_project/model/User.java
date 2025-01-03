@@ -1,6 +1,7 @@
 package com.company.spring_boot_project.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -12,10 +13,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 100)
+    @Size(max = 100, message = "Name cannot exceed 100 characters")
     private String name;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true, length = 100)
+    @Size(max = 100, message = "Email cannot exceed 100 characters")
     private String email;
 
     @Column(name = "password", nullable = false)
