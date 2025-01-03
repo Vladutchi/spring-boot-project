@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create/Edit Project</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+  <h1 th:text="${#strings.isEmpty(project.id) ? 'Create New Project' : 'Edit Project'}"></h1>
+  <form th:action="@{${#strings.isEmpty(project.id) ? '/projects' : '/projects/' + project.id}}" method="post">
+    <div>
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" th:value="${project.title}" placeholder="Enter project title" required>
+    </div>
+    <div>
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" th:text="${project.description}" placeholder="Enter project description" required></textarea>
+    </div>
+    <div>
+      <label for="dueDate">Due Date:</label>
+      <input type="date" id="dueDate" name="dueDate" th:value="${project.dueDate}" required>
+    </div>
+    <div>
+      <button type="submit">Save</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>
