@@ -5,7 +5,7 @@
   <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<div class="container">
+<div class="container small-container">
   <h1 th:text="${#strings.isEmpty(project.id) ? 'Create New Project' : 'Edit Project'}"></h1>
   <form th:action="@{${#strings.isEmpty(project.id) ? '/projects' : '/projects/' + project.id}}" method="post">
     <div>
@@ -24,6 +24,10 @@
     <div>
       <button type="submit">Save</button>
     </div>
+    <div style="text-align: center; margin-top: 10px;">
+      <a th:href="@{/projects}" class="button">Cancel</a>
+    </div>
+
   </form>
 </div>
 </body>

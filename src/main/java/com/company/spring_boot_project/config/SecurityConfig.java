@@ -33,7 +33,7 @@ public class SecurityConfig {
                 )
                 // Allow access to static resources
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll() // Static resources
+                        .requestMatchers("/css/**", "/stativ/js/**", "/images/**").permitAll() // Static resources
                         .requestMatchers("/register", "/login", "/login-error").permitAll() // Public pages
                         .anyRequest().authenticated() // All other requests require authentication
                 )
