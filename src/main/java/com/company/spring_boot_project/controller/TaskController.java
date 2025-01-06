@@ -1,6 +1,8 @@
 package com.company.spring_boot_project.controller;
 
+import com.company.spring_boot_project.model.Project;
 import com.company.spring_boot_project.model.Task;
+import com.company.spring_boot_project.service.ProjectService;
 import com.company.spring_boot_project.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,13 +18,24 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    private ProjectService projectService;
+
     @GetMapping("/{projectId}")
     public String listTasks(@PathVariable Long projectId, Model model) {
+        // Fetch the project details
+        Project project = projectService.getProjectById(projectId);
+
+        // Fetch tasks for the project
         List<Task> tasks = taskService.getTasksByProjectId(projectId);
+
+        // Add project and tasks to the model
+        model.addAttribute("project", project);
         model.addAttribute("tasks", tasks);
-        model.addAttribute("projectId", projectId);
+
         return "task-list";
     }
+
 
     @GetMapping("/{projectId}/new")
     public String showCreateTaskForm(@PathVariable Long projectId, Model model) {

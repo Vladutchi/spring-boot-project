@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Tasks</title>
+    <title th:text="${project.title}">Project Tasks</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <div class="container large-container">
-    <h1>Tasks for Project</h1>
-    <a th:href="@{'/tasks/' + ${projectId} + '/new'}" class="link">Add New Task</a>
+    <!-- Display Project Details -->
+    <div class="project-details">
+        <h1 th:text="${project.title}">Project Title</h1>
+        <p class="description">
+            <strong>Description:</strong>
+            <span th:text="${project.description}"></span>
+        </p>
+        <p class="due-date">
+            <strong>Due Date:</strong>
+            <span th:text="${project.dueDate}"></span>
+        </p>
+    </div>
+
+    <!-- Tasks Section Header -->
+    <h2>Tasks for your project:</h2>
+    <a th:href="@{'/tasks/' + ${project.id} + '/new'}" class="button-link" style="margin-bottom: 20px;">Add New Task</a>
+
+    <!-- Tasks Table -->
     <table>
         <thead>
         <tr>
@@ -23,8 +39,8 @@
             <td th:text="${task.description}"></td>
             <td th:text="${task.status}"></td>
             <td class="action-buttons">
-                <a th:href="@{'/tasks/' + ${projectId} + '/edit/' + ${task.id}}" class="button-link">Edit</a>
-                <form th:action="@{'/tasks/' + ${projectId} + '/delete/' + ${task.id}}" method="post"
+                <a th:href="@{'/tasks/' + ${project.id} + '/edit/' + ${task.id}}" class="button-link">Edit</a>
+                <form th:action="@{'/tasks/' + ${project.id} + '/delete/' + ${task.id}}" method="post"
                       style="display: inline;">
                     <button type="submit" class="button-link" style="background-color: red;">Delete</button>
                 </form>
@@ -32,7 +48,9 @@
         </tr>
         </tbody>
     </table>
-    <div style="text-align: center;">
+
+    <!-- Back to Projects Button -->
+    <div style="text-align: center; margin-top: 20px;">
         <a th:href="@{/projects}" class="button">Back to Projects</a>
     </div>
 </div>

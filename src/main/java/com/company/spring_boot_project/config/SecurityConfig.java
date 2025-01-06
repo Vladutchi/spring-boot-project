@@ -30,10 +30,12 @@ public class SecurityConfig {
                 // Enable CSRF protection
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(org.springframework.security.web.csrf.CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        .ignoringRequestMatchers("/logout") // Exclude logout from CSRF protection
                 )
+
                 // Allow access to static resources
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/stativ/js/**", "/images/**").permitAll() // Static resources
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll() // Static resources
                         .requestMatchers("/register", "/login", "/login-error").permitAll() // Public pages
                         .anyRequest().authenticated() // All other requests require authentication
                 )
@@ -46,11 +48,17 @@ public class SecurityConfig {
                 )
                 // Configure logout
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout=true") // Redirect after logout
-                        .invalidateHttpSession(true) // Invalidate session
-                        .deleteCookies("JSESSIONID") // Delete session cookie
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout=true")
+                        .addLogoutHandler((request, response, authentication) ->
+                                System.out.println("Logout endpoint hit successfully"))
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
+
+
+
                 // Set security headers manually
                 .headers(headers -> headers
                         .addHeaderWriter(new CustomSecurityHeaderWriter())

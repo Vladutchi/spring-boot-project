@@ -140,6 +140,31 @@ tbody tr:hover {
     background-color: #0056b3;
 }
 
+.project-details {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.project-details h1 {
+    margin-bottom: 10px;
+    color: #333333;
+}
+
+.project-details .description, .project-details .due-date {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555555;
+}
+
+.project-details strong {
+    color: #222222;
+    font-weight: bold;
+}
+
+
 .modal {
     position: fixed;
     top: 0;

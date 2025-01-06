@@ -24,8 +24,8 @@
         <div>
             <label for="status">Status:</label>
             <select id="status" name="status" required>
-                <option value="ONGOING" th:selected="${task.status.name() == 'ONGOING'}">Ongoing</option>
-                <option value="COMPLETED" th:selected="${task.status.name() == 'COMPLETED'}">Completed</option>
+                <option value="ONGOING" th:selected="${task.status?.name() == 'ONGOING'}">Ongoing</option>
+                <option value="COMPLETED" th:selected="${task.status?.name() == 'COMPLETED'}">Completed</option>
             </select>
         </div>
         <div>
