@@ -85,6 +85,25 @@ button:hover, .button-link:hover {
     background-color: #0056b3;
 }
 
+/* New style for logout link */
+.logout-link {
+    background: none; /* Remove button background */
+    border: none; /* Remove button border */
+    color: #007bff; /* Match the link color */
+    text-decoration: underline; /* Add underline like a link */
+    cursor: pointer; /* Show pointer cursor like a link */
+    padding: 0; /* Remove padding */
+    font: inherit; /* Match font style to surrounding text */
+}
+
+.logout-link:hover {
+    color: #0056b3; /* Darker blue for hover */
+    text-decoration: underline; /* Keep the underline */
+    background: none; /* Ensure no background appears */
+    border: none; /* Ensure no border appears */
+}
+
+
 .table-container {
     overflow-x: auto;
 }
@@ -93,7 +112,7 @@ table {
     width: 100%; /* Ensure the table fills the container */
     border-collapse: collapse;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 14px;
 }
 
@@ -138,6 +157,20 @@ tbody tr:hover {
 
 .action-buttons a:hover, .action-buttons button:hover {
     background-color: #0056b3;
+}
+
+.back-to-projects {
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the right */
+    margin-top: 20px; /* Adds spacing between the button and the scrollbar */
+    padding-right: 10px; /* Adds a small gap between the button and the container edge */
+}
+
+.logout-button-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the right */
+    margin-bottom: 20px; /* Adds space below the button */
+    padding-right: 10px; /* Adds a small gap between the button and the container edge */
 }
 
 .project-details {
@@ -189,7 +222,6 @@ tbody tr:hover {
 #confirmDelete {
     margin-right: 10px;
 }
-
 
 .error {
     color: red;

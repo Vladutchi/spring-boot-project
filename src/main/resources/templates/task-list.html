@@ -20,38 +20,40 @@
     </div>
 
     <!-- Tasks Section Header -->
-    <h2>Tasks for your project:</h2>
+    <h2>Tasks for Your Project:</h2>
     <a th:href="@{'/tasks/' + ${project.id} + '/new'}" class="button-link" style="margin-bottom: 20px;">Add New Task</a>
 
-    <!-- Tasks Table -->
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="task : ${tasks}">
-            <td th:text="${task.name}"></td>
-            <td th:text="${task.description}"></td>
-            <td th:text="${task.status}"></td>
-            <td class="action-buttons">
-                <a th:href="@{'/tasks/' + ${project.id} + '/edit/' + ${task.id}}" class="button-link">Edit</a>
-                <form th:action="@{'/tasks/' + ${project.id} + '/delete/' + ${task.id}}" method="post"
-                      style="display: inline;">
-                    <button type="submit" class="button-link" style="background-color: red;">Delete</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <!-- Tasks Table with Scrollable Container -->
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task : ${tasks}">
+                <td th:text="${task.name}"></td>
+                <td th:text="${task.description}"></td>
+                <td th:text="${task.status}"></td>
+                <td class="action-buttons">
+                    <a th:href="@{'/tasks/' + ${project.id} + '/edit/' + ${task.id}}" class="button-link">Edit</a>
+                    <form th:action="@{'/tasks/' + ${project.id} + '/delete/' + ${task.id}}" method="post"
+                          style="display: inline;">
+                        <button type="submit" class="button-link" style="background-color: red;">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <!-- Back to Projects Button -->
-    <div style="text-align: center; margin-top: 20px;">
-        <a th:href="@{/projects}" class="button">Back to Projects</a>
+    <div class="back-to-projects">
+        <a th:href="@{/projects}" class="button-link">Back to Projects</a>
     </div>
 </div>
 </body>
