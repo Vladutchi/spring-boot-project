@@ -93,6 +93,7 @@ table {
     width: 100%; /* Ensure the table fills the container */
     border-collapse: collapse;
     margin-top: 20px;
+    margin-bottom: 20px;
     font-size: 14px;
 }
 

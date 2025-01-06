@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tasks</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container large-container">
+    <h1>Tasks for Project</h1>
+    <a th:href="@{'/tasks/' + ${projectId} + '/new'}" class="link">Add New Task</a>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.name}"></td>
+            <td th:text="${task.description}"></td>
+            <td th:text="${task.status}"></td>
+            <td class="action-buttons">
+                <a th:href="@{'/tasks/' + ${projectId} + '/edit/' + ${task.id}}" class="button-link">Edit</a>
+                <form th:action="@{'/tasks/' + ${projectId} + '/delete/' + ${task.id}}" method="post"
+                      style="display: inline;">
+                    <button type="submit" class="button-link" style="background-color: red;">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div style="text-align: center;">
+        <a th:href="@{/projects}" class="button">Back to Projects</a>
+    </div>
+</div>
+</body>
+</html>
