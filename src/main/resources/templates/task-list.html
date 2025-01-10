@@ -39,17 +39,20 @@
                 <td th:text="${task.name}"></td>
                 <td th:text="${task.description}"></td>
                 <td th:text="${task.status}"></td>
-                <td class="action-buttons">
-                    <a th:href="@{'/tasks/' + ${project.id} + '/edit/' + ${task.id}}" class="button-link">Edit</a>
-                    <form th:action="@{'/tasks/' + ${project.id} + '/delete/' + ${task.id}}" method="post"
-                          style="display: inline;">
-                        <button type="submit" class="button-link" style="background-color: red;">Delete</button>
-                    </form>
+                <td>
+                    <!-- Wrap buttons in action-buttons div -->
+                    <div class="action-buttons">
+                        <a th:href="@{'/tasks/' + ${project.id} + '/edit/' + ${task.id}}" class="button-link">Edit</a>
+                        <form th:action="@{'/tasks/' + ${project.id} + '/delete/' + ${task.id}}" method="post" style="display: inline;">
+                            <button type="submit" class="button-link" style="background-color: red;">Delete</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+
 
     <!-- Back to Projects Button -->
     <div class="back-to-projects">

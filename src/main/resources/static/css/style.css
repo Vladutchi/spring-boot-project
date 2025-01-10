@@ -114,6 +114,7 @@ table {
     margin-top: 20px;
     margin-bottom: 10px;
     font-size: 14px;
+    table-layout: fixed; /* Fixed layout to prevent uneven column widths */
 }
 
 thead {
@@ -125,6 +126,8 @@ td, th {
     padding: 10px;
     text-align: left;
     border: 1px solid #ddd;
+    word-wrap: break-word; /* Enable wrapping of text */
+    white-space: normal; /* Allow text to wrap within cells */
 }
 
 tbody tr:nth-child(odd) {
@@ -138,14 +141,16 @@ tbody tr:hover {
 .action-buttons {
     display: flex;
     gap: 10px;
+    row-gap: 10px; /* Add vertical space between rows of buttons */
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
+
 .action-buttons a, .action-buttons button {
-    display: inline-block;
     padding: 10px 20px;
     font-size: 14px;
-    text-align: center;
     border-radius: 4px;
     background-color: #007bff;
     color: #ffffff;
@@ -153,7 +158,9 @@ tbody tr:hover {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    white-space: nowrap;
 }
+
 
 .action-buttons a:hover, .action-buttons button:hover {
     background-color: #0056b3;
@@ -179,6 +186,7 @@ tbody tr:hover {
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
 }
 
 .project-details h1 {
