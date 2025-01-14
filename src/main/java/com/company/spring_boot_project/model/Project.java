@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.sql.Date;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "projects")
@@ -23,23 +23,27 @@ public class Project {
     private String description;
 
     @Column(name = "due_date", nullable = false)
-    private java.sql.Date dueDate;
+    private Date dueDate;
 
+    // Collaborators for the project
     @ManyToMany
     @JoinTable(
             name = "user_projects",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> users = new ArrayList<>(); // Initialize the list
+    private List<User> users = new ArrayList<>();
 
+    // Tasks associated with the project
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Task> tasks = new ArrayList<>(); // Initialize the list for tasks as well
+    private List<Task> tasks = new ArrayList<>();
 
+    // Owner of the project
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
-    private User owner; // The user who owns the project
+    private User owner;
 
+    // Constructors, Getters, and Setters
     public Project() {
     }
 

@@ -27,14 +27,14 @@ public class TaskService {
         return taskRepository.findByProjectId(projectId);
     }
 
-    public Task createTask(Long projectId, Task task) {
+    public void createTask(Long projectId, Task task) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new IllegalArgumentException("Project not found"));
         task.setProject(project);
-        return taskRepository.save(task);
+        taskRepository.save(task);
     }
 
-    public Task updateTask(Long id, Task updatedTask) {
+    public void updateTask(Long id, Task updatedTask) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Task not found"));
 
@@ -42,7 +42,7 @@ public class TaskService {
         task.setDescription(updatedTask.getDescription());
         task.setStatus(updatedTask.getStatus());
 
-        return taskRepository.save(task);
+        taskRepository.save(task);
     }
 
 

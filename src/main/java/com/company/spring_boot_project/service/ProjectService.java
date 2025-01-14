@@ -19,8 +19,15 @@ public class ProjectService {
     private UserRepository userRepository;
 
     public List<Project> getProjectsByUserEmail(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        return user.getProjects();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return user.getOwnedProjects();
+    }
+
+    public List<Project> getSharedProjectsByUserEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return user.getSharedProjects();
     }
 
     public void createProject(Project project, String userEmail) {
@@ -28,13 +35,13 @@ public class ProjectService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         project.setOwner(user); // Set the owner
-        project.getUsers().add(user); // Add the user to the project collaborators
         projectRepository.save(project); // Save the project
     }
 
 
     public Project getProjectById(Long id) {
-        return projectRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Project not found"));
+        return projectRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Project not found"));
     }
 
     public void updateProject(Long id, Project updatedProject) {

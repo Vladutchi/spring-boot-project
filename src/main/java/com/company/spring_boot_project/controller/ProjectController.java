@@ -18,7 +18,9 @@ public class ProjectController {
 
     @GetMapping
     public String listProjects(Model model, Principal principal) {
-        model.addAttribute("projects", projectService.getProjectsByUserEmail(principal.getName()));
+        String email = principal.getName(); // Get logged-in user's email
+        model.addAttribute("projects", projectService.getProjectsByUserEmail(email)); // Owned projects
+        model.addAttribute("sharedProjects", projectService.getSharedProjectsByUserEmail(email)); // Shared projects
         return "project-list";
     }
 

@@ -16,6 +16,7 @@
 
     <!-- Page Header -->
     <h1>Your Projects</h1>
+    <h2>Owned Projects</h2>
     <a th:href="@{/projects/new}" class="button-link">New Project</a>
 
     <!-- Projects Table -->
@@ -50,6 +51,32 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Shared Projects Table -->
+    <h2>Shared Projects</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="project : ${sharedProjects}">
+                <td th:text="${project.title}"></td>
+                <td th:text="${project.description}"></td>
+                <td th:text="${project.dueDate}"></td>
+                <td>
+                    <a th:href="@{/tasks/{id}(id=${project.id})}" class="button-link">Open</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 
     <!-- Delete Confirmation Modal -->

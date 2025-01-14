@@ -3,6 +3,7 @@ package com.company.spring_boot_project.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,8 +25,13 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    // Shared projects: Projects the user collaborates on but does not own
     @ManyToMany(mappedBy = "users")
-    private List<Project> projects;
+    private List<Project> sharedProjects = new ArrayList<>();
+
+    // Owned projects: Projects created by the user
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Project> ownedProjects = new ArrayList<>();
 
     @Transient
     private String confirmPassword;
@@ -65,12 +71,20 @@ public class User {
         this.password = password;
     }
 
-    public List<Project> getProjects() {
-        return projects;
+    public List<Project> getSharedProjects() {
+        return sharedProjects;
     }
 
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
+    public void setSharedProjects(List<Project> sharedProjects) {
+        this.sharedProjects = sharedProjects;
+    }
+
+    public List<Project> getOwnedProjects() {
+        return ownedProjects;
+    }
+
+    public void setOwnedProjects(List<Project> ownedProjects) {
+        this.ownedProjects = ownedProjects;
     }
 
     public String getConfirmPassword() {
