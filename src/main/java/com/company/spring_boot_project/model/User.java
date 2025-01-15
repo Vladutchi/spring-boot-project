@@ -26,7 +26,7 @@ public class User {
     private String password;
 
     // Shared projects: Projects the user collaborates on but does not own
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "collaborators")
     private List<Project> sharedProjects = new ArrayList<>();
 
     // Owned projects: Projects created by the user

@@ -17,11 +17,38 @@
             <strong>Due Date:</strong>
             <span th:text="${project.dueDate}"></span>
         </p>
+
+        <p class="owner">
+            <strong>Owner:</strong>
+            <span th:text="${isOwner} ? 'You' : ${owner.name} + ' (' + ${owner.email} + ')'"></span>
+        </p>
+
+
+        <!-- Collaborators Field -->
+        <p class="collaborators">
+            <strong>Collaborators:</strong>
+            <span th:each=" collaborator , iterStat : ${collaborators}" style="display: inline-block; margin-right: 5px;">
+        <!-- If the logged-in user is the owner -->
+        <span th:if="${isOwner}">
+            <span th:text="${collaborator.name}"></span>
+            (<span th:text="${collaborator.email}"></span>)
+        </span>
+                <!-- If the logged-in user is a collaborator -->
+        <span th:if="${!isOwner}">
+            <span th:text="${collaborator.name}"></span>
+        </span>
+                <!-- Add a comma unless it's the last collaborator -->
+        <span th:if="${!iterStat.last}">, </span>
+    </span>
+        </p>
+
     </div>
+
 
     <!-- Share Button (Visible Only to Owners) -->
     <div th:if="${isOwner}" style="margin-bottom: 20px;">
-        <form th:action="@{'/projects/' + ${project.id} + '/add-collaborator'}" method="post" class="add-collaborator-form">
+        <form th:action="@{'/projects/' + ${project.id} + '/add-collaborator'}" method="post"
+              class="add-collaborator-form">
             <input type="email" name="userEmail" maxlength="99" placeholder="Enter user email" required>
             <button type="submit" class="button-link">Add Collaborator</button>
         </form>
@@ -30,10 +57,6 @@
         <!-- Success Message -->
         <div th:if="${successMessage}" class="success" th:text="${successMessage}"></div>
     </div>
-
-
-
-
 
 
     <!-- Tasks Section Header -->
@@ -60,7 +83,8 @@
                     <!-- Wrap buttons in action-buttons div -->
                     <div class="action-buttons">
                         <a th:href="@{'/tasks/' + ${project.id} + '/edit/' + ${task.id}}" class="button-link">Edit</a>
-                        <form th:action="@{'/tasks/' + ${project.id} + '/delete/' + ${task.id}}" method="post" style="display: inline;">
+                        <form th:action="@{'/tasks/' + ${project.id} + '/delete/' + ${task.id}}" method="post"
+                              style="display: inline;">
                             <button type="submit" class="button-link" style="background-color: red;">Delete</button>
                         </form>
                     </div>

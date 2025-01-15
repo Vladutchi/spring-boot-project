@@ -63,11 +63,11 @@ public class ProjectService {
             throw new IllegalArgumentException("Owner cannot be a collaborator.");
         }
 
-        if (project.getUsers().contains(user)) {
+        if (project.getCollaborators().contains(user)) {
             throw new IllegalArgumentException("User is already a collaborator.");
         }
 
-        project.getUsers().add(user); // Add user as a collaborator
+        project.getCollaborators().add(user); // Add user as a collaborator
         projectRepository.save(project); // Save changes to the project
     }
 

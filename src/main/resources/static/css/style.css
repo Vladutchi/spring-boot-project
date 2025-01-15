@@ -194,7 +194,7 @@ tbody tr:hover {
     color: #333333;
 }
 
-.project-details .description, .project-details .due-date {
+.project-details .description, .project-details .due-date .owner .collaborators{
     margin: 10px 0;
     font-size: 16px;
     color: #555555;
@@ -276,4 +276,8 @@ tbody tr:hover {
 .add-collaborator-form button:hover {
     background-color: #0056b3;
 }
+
+
+
+
 

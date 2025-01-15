@@ -32,7 +32,7 @@ public class Project {
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> users = new ArrayList<>();
+    private List<User> collaborators = new ArrayList<>();
 
     // Tasks associated with the project
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -79,12 +79,12 @@ public class Project {
         this.dueDate = dueDate;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<User> getCollaborators() {
+        return collaborators;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setCollaborators(List<User> collaborators) {
+        this.collaborators = collaborators;
     }
 
     public List<Task> getTasks() {

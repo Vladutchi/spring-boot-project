@@ -2,6 +2,7 @@ package com.company.spring_boot_project.controller;
 
 import com.company.spring_boot_project.model.Project;
 import com.company.spring_boot_project.model.Task;
+import com.company.spring_boot_project.model.User;
 import com.company.spring_boot_project.service.ProjectService;
 import com.company.spring_boot_project.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +33,18 @@ public class TaskController {
 
         // Determine if the logged-in user is the owner of the project
         String loggedInUserEmail = principal.getName();
-        boolean isOwner = project.getOwner().getEmail().equals(loggedInUserEmail);
+        User owner = project.getOwner(); // Fetch the owner of the project
+        boolean isOwner = owner.getEmail().equals(loggedInUserEmail); // Verify ownership
 
-        // Add project, tasks, and ownership information to the model
+        // Get collaborators (list already excludes the owner)
+        List<User> collaborators = project.getCollaborators();
+
+        // Add project, tasks, ownership information, and collaborators to the model
         model.addAttribute("project", project);
         model.addAttribute("tasks", tasks);
+        model.addAttribute("owner", owner); // Add the owner object
         model.addAttribute("isOwner", isOwner);
+        model.addAttribute("collaborators", collaborators);
 
         return "task-list";
     }
