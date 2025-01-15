@@ -52,6 +52,27 @@ public class ProjectService {
         projectRepository.save(project);
     }
 
+    public void addCollaborator(Long projectId, String userEmail) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new IllegalArgumentException("Project not found"));
+
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("User does not exist"));
+
+        if (project.getOwner().equals(user)) {
+            throw new IllegalArgumentException("Owner cannot be a collaborator.");
+        }
+
+        if (project.getUsers().contains(user)) {
+            throw new IllegalArgumentException("User is already a collaborator.");
+        }
+
+        project.getUsers().add(user); // Add user as a collaborator
+        projectRepository.save(project); // Save changes to the project
+    }
+
+
+
     public void deleteProject(Long id) {
         projectRepository.deleteById(id);
     }

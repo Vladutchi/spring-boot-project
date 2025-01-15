@@ -234,5 +234,46 @@ tbody tr:hover {
 .error {
     color: red;
     text-align: center;
+    margin-top: 10px;
     margin-bottom: 15px;
 }
+
+.success {
+    color: green;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+/* Specific styles for Add Collaborator form */
+.add-collaborator-form {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between input and button */
+}
+
+.add-collaborator-form input[type="email"] {
+    flex: 0 0 50%; /* Restrict input field width to 50% */
+    max-width: 50%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.add-collaborator-form button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-collaborator-form button:hover {
+    background-color: #0056b3;
+}
+

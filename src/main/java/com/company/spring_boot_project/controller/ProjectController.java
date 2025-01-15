@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -47,6 +48,21 @@ public class ProjectController {
         projectService.updateProject(id, project);
         return "redirect:/projects";
     }
+
+    @PostMapping("/{projectId}/add-collaborator")
+    public String addCollaborator(
+            @PathVariable Long projectId,
+            @RequestParam String userEmail,
+            RedirectAttributes redirectAttributes) {
+        try {
+            projectService.addCollaborator(projectId, userEmail);
+            redirectAttributes.addFlashAttribute("successMessage", "Collaborator added successfully.");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/tasks/" + projectId; // Redirect back to the project tasks page
+    }
+
 
     @PostMapping("/{id}/delete")
     public String deleteProject(@PathVariable Long id) {

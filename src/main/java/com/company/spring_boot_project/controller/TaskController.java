@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -22,19 +23,25 @@ public class TaskController {
     private ProjectService projectService;
 
     @GetMapping("/{projectId}")
-    public String listTasks(@PathVariable Long projectId, Model model) {
+    public String listTasks(@PathVariable Long projectId, Model model, Principal principal) {
         // Fetch the project details
         Project project = projectService.getProjectById(projectId);
 
         // Fetch tasks for the project
         List<Task> tasks = taskService.getTasksByProjectId(projectId);
 
-        // Add project and tasks to the model
+        // Determine if the logged-in user is the owner of the project
+        String loggedInUserEmail = principal.getName();
+        boolean isOwner = project.getOwner().getEmail().equals(loggedInUserEmail);
+
+        // Add project, tasks, and ownership information to the model
         model.addAttribute("project", project);
         model.addAttribute("tasks", tasks);
+        model.addAttribute("isOwner", isOwner);
 
         return "task-list";
     }
+
 
 
     @GetMapping("/{projectId}/new")

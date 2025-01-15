@@ -19,6 +19,23 @@
         </p>
     </div>
 
+    <!-- Share Button (Visible Only to Owners) -->
+    <div th:if="${isOwner}" style="margin-bottom: 20px;">
+        <form th:action="@{'/projects/' + ${project.id} + '/add-collaborator'}" method="post" class="add-collaborator-form">
+            <input type="email" name="userEmail" maxlength="99" placeholder="Enter user email" required>
+            <button type="submit" class="button-link">Add Collaborator</button>
+        </form>
+        <!-- Error Message -->
+        <div th:if="${errorMessage}" class="error" th:text="${errorMessage}"></div>
+        <!-- Success Message -->
+        <div th:if="${successMessage}" class="success" th:text="${successMessage}"></div>
+    </div>
+
+
+
+
+
+
     <!-- Tasks Section Header -->
     <h2>Tasks for Your Project:</h2>
     <a th:href="@{'/tasks/' + ${project.id} + '/new'}" class="button-link" style="margin-bottom: 20px;">Add New Task</a>
