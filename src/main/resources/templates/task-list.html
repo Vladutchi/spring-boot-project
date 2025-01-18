@@ -20,14 +20,14 @@
 
         <p class="owner">
             <strong>Owner:</strong>
-            <span th:text="${isOwner} ? 'You' : ${owner.name} + ' (' + ${owner.email} + ')'"></span>
+            <span th:text="${owner.name} + ' (' + ${owner.email} + ')'"></span>
         </p>
 
 
         <!-- Collaborators Field -->
         <p class="collaborators">
             <strong>Collaborators:</strong>
-            <span th:each=" collaborator , iterStat : ${collaborators}" style="display: inline-block; margin-right: 5px;">
+            <span th:each=" collaborator , iterStat : ${collaborators}" style="display: inline;">
         <!-- If the logged-in user is the owner -->
         <span th:if="${isOwner}">
             <span th:text="${collaborator.name}"></span>
@@ -45,12 +45,13 @@
     </div>
 
 
-    <!-- Share Button (Visible Only to Owners) -->
+    <!-- Collaborators Form (Visible Only to Owners) -->
     <div th:if="${isOwner}" style="margin-bottom: 20px;">
-        <form th:action="@{'/projects/' + ${project.id} + '/add-collaborator'}" method="post"
+        <form th:action="@{'/projects/' + ${project.id} + '/collaborators'}" method="post"
               class="add-collaborator-form">
             <input type="email" name="userEmail" maxlength="99" placeholder="Enter user email" required>
-            <button type="submit" class="button-link">Add Collaborator</button>
+            <button type="submit" name="action" value="ADD" class="button-link">Add Collaborator</button>
+            <button type="submit" name="action" value="REMOVE" class="button-link" style="background-color: red;">Remove Collaborator</button>
         </form>
         <!-- Error Message -->
         <div th:if="${errorMessage}" class="error" th:text="${errorMessage}"></div>

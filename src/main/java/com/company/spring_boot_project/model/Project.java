@@ -28,7 +28,7 @@ public class Project {
     // Collaborators for the project
     @ManyToMany
     @JoinTable(
-            name = "user_projects",
+            name = "users_projects",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )

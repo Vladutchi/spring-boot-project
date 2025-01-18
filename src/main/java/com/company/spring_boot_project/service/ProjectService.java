@@ -1,5 +1,6 @@
 package com.company.spring_boot_project.service;
 
+import com.company.spring_boot_project.controller.ProjectController;
 import com.company.spring_boot_project.model.Project;
 import com.company.spring_boot_project.model.User;
 import com.company.spring_boot_project.repository.ProjectRepository;
@@ -11,6 +12,11 @@ import java.util.List;
 
 @Service
 public class ProjectService {
+
+    public enum CollaboratorAction {
+        ADD,
+        REMOVE
+    }
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -52,24 +58,32 @@ public class ProjectService {
         projectRepository.save(project);
     }
 
-    public void addCollaborator(Long projectId, String userEmail) {
+    public void manageCollaborator(Long projectId, String userEmail, CollaboratorAction action) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new IllegalArgumentException("Project not found"));
 
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new IllegalArgumentException("User does not exist"));
 
-        if (project.getOwner().equals(user)) {
-            throw new IllegalArgumentException("Owner cannot be a collaborator.");
+        if (action == CollaboratorAction.ADD) {
+            if (project.getOwner().equals(user)) {
+                throw new IllegalArgumentException("Owner cannot be added as a collaborator.");
+            }
+            if (project.getCollaborators().contains(user)) {
+                throw new IllegalArgumentException("User is already a collaborator.");
+            }
+            project.getCollaborators().add(user);
+        } else if (action == CollaboratorAction.REMOVE) {
+            if (!project.getCollaborators().contains(user)) {
+                throw new IllegalArgumentException("User is not a collaborator.");
+            }
+            project.getCollaborators().remove(user);
         }
 
-        if (project.getCollaborators().contains(user)) {
-            throw new IllegalArgumentException("User is already a collaborator.");
-        }
-
-        project.getCollaborators().add(user); // Add user as a collaborator
-        projectRepository.save(project); // Save changes to the project
+        projectRepository.save(project);
     }
+
+
 
 
 

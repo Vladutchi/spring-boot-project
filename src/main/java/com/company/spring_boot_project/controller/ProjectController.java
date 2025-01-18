@@ -49,19 +49,28 @@ public class ProjectController {
         return "redirect:/projects";
     }
 
-    @PostMapping("/{projectId}/add-collaborator")
+    @PostMapping("/{projectId}/collaborators")
     public String addCollaborator(
             @PathVariable Long projectId,
             @RequestParam String userEmail,
+            @RequestParam ProjectService.CollaboratorAction action,
             RedirectAttributes redirectAttributes) {
         try {
-            projectService.addCollaborator(projectId, userEmail);
-            redirectAttributes.addFlashAttribute("successMessage", "Collaborator added successfully.");
+            projectService.manageCollaborator(projectId, userEmail, action);
+
+            // Set dynamic success message based on the action
+            String successMessage = (action == ProjectService.CollaboratorAction.ADD)
+                    ? "Collaborator added successfully."
+                    : "Collaborator removed successfully.";
+            redirectAttributes.addFlashAttribute("successMessage", successMessage);
+
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
+
         return "redirect:/tasks/" + projectId; // Redirect back to the project tasks page
     }
+
 
 
     @PostMapping("/{id}/delete")
