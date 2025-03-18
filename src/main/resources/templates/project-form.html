@@ -21,7 +21,10 @@
 
         <div>
             <label for="dueDate">Due Date:</label>
-            <input type="date" id="dueDate" name="dueDate" th:value="${project.dueDate}" required>
+            <input type="date" id="dueDate" name="dueDate"
+                   th:value="${project.dueDate}"
+                   th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                   required>
         </div>
         <div>
             <button type="submit">Save</button>
