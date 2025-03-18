@@ -1,6 +1,6 @@
 # Project Management Application
 
-A full-stack task management web application built with **Spring Boot, MySQL, and Thymeleaf**, enabling users to efficiently manage projects and tasks.
+A full-stack MVC task management web application built with **Spring Boot, MySQL, and Thymeleaf**, enabling users to manage projects and tasks.
 
 ## Features
 
