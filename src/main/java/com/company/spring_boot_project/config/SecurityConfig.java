@@ -1,5 +1,7 @@
 package com.company.spring_boot_project.config;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,9 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.HeaderWriter;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class SecurityConfig {
@@ -56,9 +55,6 @@ public class SecurityConfig {
                         .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
-
-
-
                 // Set security headers manually
                 .headers(headers -> headers
                         .addHeaderWriter(new CustomSecurityHeaderWriter())
@@ -89,7 +85,9 @@ public class SecurityConfig {
     private static class CustomSecurityHeaderWriter implements HeaderWriter {
         @Override
         public void writeHeaders(HttpServletRequest request, HttpServletResponse response) {
-            response.addHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:;");
+            response.addHeader("Content-Security-Policy",
+                    "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; " +
+                            "style-src 'self' https://cdn.jsdelivr.net; img-src 'self' data:;");
             response.addHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
             response.addHeader("Permissions-Policy", "geolocation=(self), microphone=()");
             response.addHeader("X-Content-Type-Options", "nosniff");
