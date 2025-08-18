@@ -1,31 +1,22 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const deleteButtons = document.querySelectorAll('.delete-button');
-    const modal = document.getElementById('deleteModal');
-    const modalMessage = document.getElementById('modalMessage');
-    const confirmDelete = document.getElementById('confirmDelete');
-    const cancelDelete = document.getElementById('cancelDelete');
+document.addEventListener("DOMContentLoaded", () => {
+    let formToSubmit = null;
+    const modalMessage = document.getElementById("modalMessage");
+    const confirmDelete = document.getElementById("confirmDelete");
+    const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
 
-    let deleteForm = null; // Track the form to delete
+    document.querySelectorAll(".delete-button").forEach(button => {
+        button.addEventListener("click", function () {
+            const projectTitle = this.getAttribute("data-project-title");
+            formToSubmit = this.closest("form");
 
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent form submission
-            const projectTitle = button.getAttribute('data-project-title');
-            deleteForm = button.closest('form');
-            modalMessage.textContent = "Are you sure you want to permanently delete this project and all its tasks?";
-            modal.style.display = 'flex'; // Show the modal
+            modalMessage.textContent = `Are you sure you want to delete "${projectTitle}"?`;
+            deleteModal.show();
         });
     });
 
-    confirmDelete.addEventListener('click', function () {
-        if (deleteForm) {
-            deleteForm.submit(); // Submit the form
+    confirmDelete.addEventListener("click", () => {
+        if (formToSubmit) {
+            formToSubmit.submit();
         }
-        modal.style.display = 'none'; // Hide the modal
-    });
-
-    cancelDelete.addEventListener('click', function () {
-        modal.style.display = 'none'; // Hide the modal
-        deleteForm = null; // Clear form reference
     });
 });
