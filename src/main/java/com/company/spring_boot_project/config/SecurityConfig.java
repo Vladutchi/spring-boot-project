@@ -41,6 +41,8 @@ public class SecurityConfig {
                 // Configure login
                 .formLogin(form -> form
                         .loginPage("/login") // Custom login page
+                        .usernameParameter("email")
+                        .passwordParameter("password") //Redundant as "password" is the default parameter
                         .failureUrl("/login-error?error=true") // Redirect to login error page
                         .defaultSuccessUrl("/projects", true) // Redirect to homepage after successful login
                         .permitAll()

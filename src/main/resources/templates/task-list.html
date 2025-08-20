@@ -7,79 +7,80 @@
           rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
           crossorigin="anonymous">
-
     <!-- Custom CSS -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
-<div class="container large-container">
-    <!-- Display Project Details -->
-    <div class="project-details">
-        <h1 th:text="${project.title}">Project Title</h1>
-        <p class="description">
-            <strong>Description:</strong>
-            <span th:text="${project.description}"></span>
-        </p>
-        <p class="due-date">
-            <strong>Due Date:</strong>
-            <span th:text="${project.dueDate}"></span>
-        </p>
+<body class="bg-light">
 
-        <p class="owner">
-            <strong>Owner:</strong>
-            <span th:text="${owner.name} + ' (' + ${owner.email} + ')'"></span>
-        </p>
+<div class="container my-5">
 
-
-        <!-- Collaborators Field -->
-        <p class="collaborators">
-            <strong>Collaborators:</strong>
-            <span th:each=" collaborator , iterStat : ${collaborators}" style="display: inline;">
-        <!-- If the logged-in user is the owner -->
-        <span th:if="${isOwner}">
-            <span th:text="${collaborator.name}"></span>
-            (<span th:text="${collaborator.email}"></span>)
-        </span>
-                <!-- If the logged-in user is a collaborator -->
-        <span th:if="${!isOwner}">
-            <span th:text="${collaborator.name}"></span>
-        </span>
-                <!-- Add a comma unless it's the last collaborator -->
-        <span th:if="${!iterStat.last}">, </span>
-    </span>
-        </p>
-
+    <!-- Back to Projects -->
+    <div class="d-flex justify-content-end mb-3">
+        <a th:href="@{/projects}" class="btn btn-outline-secondary btn-sm">← Back to Projects</a>
     </div>
 
-
-    <!-- Collaborators Form (Visible Only to Owners) -->
-    <div th:if="${isOwner}" style="margin-bottom: 20px;">
-        <form th:action="@{'/projects/' + ${project.id} + '/collaborators'}" method="post"
-              class="add-collaborator-form">
-            <input type="email" name="userEmail" maxlength="99" placeholder="Enter user email" required>
-            <button type="submit" name="action" value="ADD" class="button-link">Add Collaborator</button>
-            <button type="submit" name="action" value="REMOVE" class="button-link" style="background-color: red;">Remove Collaborator</button>
-        </form>
-        <!-- Error Message -->
-        <div th:if="${errorMessage}" class="error" th:text="${errorMessage}"></div>
-        <!-- Success Message -->
-        <div th:if="${successMessage}" class="success" th:text="${successMessage}"></div>
+    <!-- Project Details -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h1 class="card-title mb-3" th:text="${project.title}">Project Title</h1>
+            <p><strong>Description:</strong> <span th:text="${project.description}"></span></p>
+            <p><strong>Due Date:</strong> <span th:text="${project.dueDate}"></span></p>
+            <p><strong>Owner:</strong> <span th:text="${owner.name} + ' (' + ${owner.email} + ')'"></span></p>
+            <p>
+                <strong>Collaborators:</strong>
+                <span th:each="collaborator, iterStat : ${collaborators}" class="me-1">
+                    <span th:if="${isOwner}">
+                        <span th:text="${collaborator.name}"></span>
+                        (<span th:text="${collaborator.email}"></span>)
+                    </span>
+                    <span th:if="${!isOwner}">
+                        <span th:text="${collaborator.name}"></span>
+                    </span>
+                    <span th:if="${!iterStat.last}">,</span>
+                </span>
+            </p>
+        </div>
     </div>
 
+    <!-- Collaborators Form (Owners Only) -->
+    <div th:if="${isOwner}" class="mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Manage Collaborators</h5>
+                <form th:action="@{'/projects/' + ${project.id} + '/collaborators'}" method="post" class="row g-2">
+                    <div class="col-md-6">
+                        <input type="email" name="userEmail" maxlength="99"
+                               placeholder="Enter user email"
+                               class="form-control" required>
+                    </div>
+                    <div class="col-md-auto">
+                        <button type="submit" name="action" value="ADD" class="btn btn-success">Add</button>
+                    </div>
+                    <div class="col-md-auto">
+                        <button type="submit" name="action" value="REMOVE" class="btn btn-danger">Remove</button>
+                    </div>
+                </form>
+                <!-- Messages -->
+                <div th:if="${errorMessage}" class="alert alert-danger mt-3" th:text="${errorMessage}"></div>
+                <div th:if="${successMessage}" class="alert alert-success mt-3" th:text="${successMessage}"></div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Tasks Section Header -->
-    <h2>Tasks for Your Project:</h2>
-    <a th:href="@{'/tasks/' + ${project.id} + '/new'}" class="button-link" style="margin-bottom: 20px;">Add New Task</a>
+    <!-- Tasks Section -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h4 mb-0">Tasks</h2>
+        <a th:href="@{'/tasks/' + ${project.id} + '/new'}" class="btn btn-dark">+ Add New Task</a>
+    </div>
 
-    <!-- Tasks Table with Scrollable Container -->
-    <div class="table-container">
-        <table>
-            <thead>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered align-middle">
+            <thead class="table-dark">
             <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th class="w-20">Name</th>
+                <th class="w-40">Description</th>
+                <th class="w-20">Status</th>
+                <th class="w-20">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -88,13 +89,16 @@
                 <td th:text="${task.description}"></td>
                 <td th:text="${task.status}"></td>
                 <td>
-                    <!-- Wrap buttons in action-buttons div -->
-                    <div class="action-buttons">
-                        <a th:href="@{'/tasks/' + ${project.id} + '/edit/' + ${task.id}}" class="button-link">Edit</a>
-                        <form th:action="@{'/tasks/' + ${project.id} + '/delete/' + ${task.id}}" method="post"
-                              style="display: inline;">
-                            <button type="submit" class="button-link" style="background-color: red;">Delete</button>
-                        </form>
+                    <div class="row g-2">
+                        <div class="col">
+                            <a th:href="@{'/tasks/' + ${project.id} + '/edit/' + ${task.id}}"
+                               class="btn btn-warning btn-sm w-100">Edit</a>
+                        </div>
+                        <div class="col">
+                            <form th:action="@{'/tasks/' + ${project.id} + '/delete/' + ${task.id}}" method="post">
+                                <button type="submit" class="btn btn-danger btn-sm w-100">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -102,11 +106,11 @@
         </table>
     </div>
 
-
-    <!-- Back to Projects Button -->
-    <div class="back-to-projects">
-        <a th:href="@{/projects}" class="button-link">Back to Projects</a>
-    </div>
 </div>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>
