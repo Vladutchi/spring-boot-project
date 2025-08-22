@@ -25,7 +25,7 @@ The registration page allows new users to create an account by entering their na
 ### 2. User Login
 ![Login Page](screenshots/login.png)
 
-The login page grants registered users access to the application, with validation messages displayed for incorrect credentials to ensure security.
+The login page grants registered users access to the application, with validation messages displayed for incorrect credentials.
 
 ---
 
@@ -46,14 +46,14 @@ Users can create a new project by providing a title, description, and due date. 
 ### 5. Edit Project
 ![Edit Project](screenshots/project-form-edit.png)
 
-The edit functionality utilizes the same form as creation but pre-fills it with existing details for both projects and tasks, enabling users to update information effortlessly.
+The edit functionality utilizes the same form as creation but pre-fills it with existing details for both projects and tasks.
 
 ---
 
 ### 6. Task List
 ![Task List](screenshots/task-list.png)
 
-Opening a project provides a detailed view that displays all associated tasks with their statuses (ongoing or completed). This view enables users to efficiently manage tasks by adding, updating, or marking them as completed. Additionally, for owned projects, users have the option to add or remove collaborators.
+Opening a project provides a detailed view that displays all associated tasks and their respective status (ongoing or completed). This view enables users to manage tasks by adding, updating, or marking them as complete. Additionally, for owned projects, users have the option to add or remove collaborators.
 
 ---
 
@@ -81,6 +81,6 @@ Before deleting, the application prompts users for confirmation to prevent accid
 ### 10. Error Handling
 ![Error Handling](screenshots/error-handling.png)
 
-The application provides informative error messages to guide users in case of form validation errors or system issues.
+The application provides informative error messages to guide users in case of form validation errors.
 
 ---
