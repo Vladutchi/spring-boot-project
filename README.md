@@ -7,9 +7,9 @@ A full-stack MVC task management web application built with **Spring Boot, MySQL
 - **User Authentication:** Secure login and registration with password hashing using Java Security.
 - **Project Management:** Create, edit, and delete projects, share projects with other users.
 - **Task Management:** Add, update, and track tasks within projects.
-- **Collaborative Work:** Shared project functionality allowing multiple users to collaborate.
-- **Validation & Error Handling:** Ensuring data integrity with meaningful validation messages.
-- **Responsive UI:** Built with Thymeleaf for an accessible and user-friendly experience.
+- **Collaborative Work:** Shared projects allow multiple users to collaborate.
+- **Validation & Error Handling:** Data integrity is ensured through form validations.
+- **Responsive UI:** Views are built with Thymeleaf.
 
 ---
 
